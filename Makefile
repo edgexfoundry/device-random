@@ -1,17 +1,20 @@
 .PHONY: build test clean prepare update
 
 GO=CGO_ENABLED=0 go
-GOFLAGS=-ldflags
 
 MICROSERVICES=cmd/device-random
 
 .PHONY: $(MICROSERVICES)
 
+VERSION=$(shell cat ./VERSION)
+
+GOFLAGS=-ldflags "-X github.com/edgexfoundry/device-random.Version=$(VERSION)"
+
 build: $(MICROSERVICES)
 	go build ./...
 
 cmd/device-random:
-	$(GO) build -o $@ ./cmd
+	$(GO) build $(GOFLAGS) -o $@ ./cmd
 
 test:
 	go test ./... -cover
@@ -24,6 +27,3 @@ prepare:
 
 update:
 	glide update
-
-run:
-	cd bin && ./edgex-launch.sh
