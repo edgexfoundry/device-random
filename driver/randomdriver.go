@@ -10,8 +10,6 @@ package driver
 
 import (
 	"fmt"
-	"math/rand"
-	"strconv"
 	"time"
 
 	dsModels "github.com/edgexfoundry/device-sdk-go/pkg/models"
@@ -20,12 +18,9 @@ import (
 )
 
 type RandomDriver struct {
-	lc      logger.LoggingClient
-	asyncCh chan<- *dsModels.AsyncValues
-}
-
-func random(min int, max int) int {
-	return rand.Intn(max-min) + min
+	lc            logger.LoggingClient
+	asyncCh       chan<- *dsModels.AsyncValues
+	randomDevices map[string]*randomDevice
 }
 
 func (d *RandomDriver) DisconnectDevice(address *models.Addressable) error {
@@ -36,57 +31,117 @@ func (d *RandomDriver) DisconnectDevice(address *models.Addressable) error {
 func (d *RandomDriver) Initialize(lc logger.LoggingClient, asyncCh chan<- *dsModels.AsyncValues) error {
 	d.lc = lc
 	d.asyncCh = asyncCh
+	d.randomDevices = make(map[string]*randomDevice)
 	return nil
 }
 
 func (d *RandomDriver) HandleReadCommands(addr *models.Addressable, reqs []dsModels.CommandRequest) (res []*dsModels.CommandValue, err error) {
+	rd, ok := d.randomDevices[addr.Name]
+	if !ok {
+		rd = newRandomDevice()
+		d.randomDevices[addr.Name] = rd
+	}
+
 	res = make([]*dsModels.CommandValue, len(reqs))
 	now := time.Now().UnixNano() / int64(time.Millisecond)
-	rand.Seed(time.Now().UnixNano())
 
 	for i, req := range reqs {
 		t := req.DeviceObject.Properties.Value.Type
-		defMin, defMax := 0, 0
-
-		switch t {
-		case "Int8":
-			defMin, defMax = -128, 127
-		case "Int16":
-			defMin, defMax = -32768, 32767
-		case "Int32":
-			defMin, defMax = -2147483648, 2147483647
+		v, err := rd.value(t)
+		if err != nil {
+			return nil, err
 		}
-
-		min, e := strconv.Atoi(req.DeviceObject.Properties.Value.Minimum)
-		if e != nil || min < defMin || min > defMax {
-			err = fmt.Errorf("RandomDriver.HandleReadCommands: minimum value %d of %T must be int between %d ~ %d", min, min, defMin, defMax)
-			return
-		}
-
-		max, e := strconv.Atoi(req.DeviceObject.Properties.Value.Maximum)
-		if e != nil || max < defMin || max > defMax || max < min {
-			err = fmt.Errorf("RandomDriver.HandleReadCommands: maximum value %d of %T must be int between %d ~ %d and greater than min", max, max, defMin, defMax)
-			return
-		}
-
 		var cv *dsModels.CommandValue
 		switch t {
 		case "Int8":
-			cv, _ = dsModels.NewInt8Value(&req.RO, now, int8(random(min, max)))
+			cv, _ = dsModels.NewInt8Value(&req.RO, now, int8(v))
 		case "Int16":
-			cv, _ = dsModels.NewInt16Value(&req.RO, now, int16(random(min, max)))
+			cv, _ = dsModels.NewInt16Value(&req.RO, now, int16(v))
 		case "Int32":
-			cv, _ = dsModels.NewInt32Value(&req.RO, now, int32(random(min, max)))
+			cv, _ = dsModels.NewInt32Value(&req.RO, now, int32(v))
 		}
 		res[i] = cv
 	}
 
-	return
+	return res, nil
 }
 
 func (d *RandomDriver) HandleWriteCommands(addr *models.Addressable, reqs []dsModels.CommandRequest,
 	params []*dsModels.CommandValue) error {
-	return fmt.Errorf("RandomDriver.HandleWriteCommands: device-random doesn't support write operation")
+	rd, ok := d.randomDevices[addr.Name]
+	if !ok {
+		rd = newRandomDevice()
+		d.randomDevices[addr.Name] = rd
+	}
+
+	for _, param := range params {
+		switch param.RO.Object {
+		case "Min_Int8":
+			v, err := param.Int8Value()
+			if err != nil {
+				return fmt.Errorf("RandomDriver.HandleWriteCommands: %v", err)
+			}
+			if v < defMinInt8 {
+				return fmt.Errorf("RandomDriver.HandleWriteCommands: minimum value %d of %T must be int between %d ~ %d", v, v, defMinInt8, defMaxInt8)
+			}
+
+			rd.minInt8 = int(v)
+		case "Max_Int8":
+			v, err := param.Int8Value()
+			if err != nil {
+				return fmt.Errorf("RandomDriver.HandleWriteCommands: %v", err)
+			}
+			if v > defMaxInt8 {
+				return fmt.Errorf("RandomDriver.HandleWriteCommands: maximum value %d of %T must be int between %d ~ %d", v, v, defMinInt8, defMaxInt8)
+			}
+
+			rd.maxInt8 = int(v)
+		case "Min_Int16":
+			v, err := param.Int16Value()
+			if err != nil {
+				return fmt.Errorf("RandomDriver.HandleWriteCommands: %v", err)
+			}
+			if v < defMinInt16 {
+				return fmt.Errorf("RandomDriver.HandleWriteCommands: minimum value %d of %T must be int between %d ~ %d", v, v, defMinInt16, defMaxInt16)
+			}
+
+			rd.minInt16 = int(v)
+		case "Max_Int16":
+			v, err := param.Int16Value()
+			if err != nil {
+				return fmt.Errorf("RandomDriver.HandleWriteCommands: %v", err)
+			}
+			if v > defMaxInt16 {
+				return fmt.Errorf("RandomDriver.HandleWriteCommands: maximum value %d of %T must be int between %d ~ %d", v, v, defMinInt16, defMaxInt16)
+			}
+
+			rd.maxInt16 = int(v)
+		case "Min_Int32":
+			v, err := param.Int32Value()
+			if err != nil {
+				return fmt.Errorf("RandomDriver.HandleWriteCommands: %v", err)
+			}
+			if v < defMinInt32 {
+				return fmt.Errorf("RandomDriver.HandleWriteCommands: minimum value %d of %T must be int between %d ~ %d", v, v, defMinInt32, defMaxInt32)
+			}
+
+			rd.minInt32 = int(v)
+		case "Max_Int32":
+			v, err := param.Int32Value()
+			if err != nil {
+				return fmt.Errorf("RandomDriver.HandleWriteCommands: %v", err)
+			}
+			if v > defMaxInt32 {
+				return fmt.Errorf("RandomDriver.HandleWriteCommands: maximum value %d of %T must be int between %d ~ %d", v, v, defMinInt32, defMaxInt32)
+			}
+
+			rd.maxInt32 = int(v)
+		default:
+			return fmt.Errorf("RandomDriver.HandleWriteCommands: there is no matched device resource for %s", param.String())
+		}
+	}
+
+	return nil
 }
 
 func (d *RandomDriver) Stop(force bool) error {
