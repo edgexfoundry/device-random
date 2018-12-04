@@ -35,7 +35,7 @@ docker: $(DOCKERS)
 
 docker_device_random_go:
 	docker build \
-		--label "git_sha=$(GIT_SHA) \
+		--label "git_sha=$(GIT_SHA)" \
 		-t edgexfoundry/docker-device-random-go:$(GIT_SHA) \
 		-t edgexfoundry/docker-device-random-go:$(VERSION)-dev \
 		.
