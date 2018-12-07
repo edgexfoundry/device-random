@@ -9,28 +9,28 @@ https://github.com/gorilla/mux/blob/master/LICENSE
 hashicorp/consul 1.1.0 (Mozilla Public License 2.0) - https://github.com/hashicorp/consul
 https://github.com/hashicorp/consul/blob/master/LICENSE
 
-go-cleanhttp (Mozilla Public License 2.0) - https://github.com/hashicorp/go-cleanhttp
+hashicorp/go-cleanhttp (Mozilla Public License 2.0) - https://github.com/hashicorp/go-cleanhttp
 https://github.com/hashicorp/go-cleanhttp/blob/master/LICENSE
 
-go-rootcerts (Mozilla Public License 2.0) https://github.com/hashicorp/go-rootcerts
+hashicorp/go-rootcerts (Mozilla Public License 2.0) https://github.com/hashicorp/go-rootcerts
 https://github.com/hashicorp/go-rootcerts/blob/master/LICENSE
 
-go-homedir (MIT) https://github.com/mitchellh/go-homedir
+mitchellh/go-homedir (MIT) https://github.com/mitchellh/go-homedir
 https://github.com/mitchellh/go-homedir/blob/master/LICENSE
 
-mapstructure (MIT) https://github.com/mitchellh/mapstructure
+mitchellh/mapstructure (MIT) https://github.com/mitchellh/mapstructure
 https://github.com/mitchellh/mapstructure/blob/master/LICENSE
 
-serf (Mozilla Public License 2.0) https://github.com/hashicorp/serf
+hashicorp/serf (Mozilla Public License 2.0) https://github.com/hashicorp/serf
 https://github.com/hashicorp/serf/blob/master/LICENSE
 
-go-metrics (MIT) https://github.com/armon/go-metrics
+armon/go-metrics (MIT) https://github.com/armon/go-metrics
 https://github.com/armon/go-metrics/blob/master/LICENSE
 
-go-immutable-radix (Mozilla Public License 2.0) https://github.com/hashicorp/go-immutable-radix
+hashicorp/go-immutable-radix (Mozilla Public License 2.0) https://github.com/hashicorp/go-immutable-radix
 https://github.com/hashicorp/go-immutable-radix/blob/master/LICENSE
 
-golang-lru (Mozilla Public License 2.0) https://github.com/hashicorp/golang-lru
+hashicorp/golang-lru (Mozilla Public License 2.0) https://github.com/hashicorp/golang-lru
 https://github.com/hashicorp/golang-lru/blob/master/LICENSE
 
 robfig/cron (MIT) - https://github.com/robfig/cron
@@ -45,8 +45,8 @@ https://github.com/go-mgo/mgo/blob/v2/bson/LICENSE
 gopkg.in/yaml v2 (Apache 2.0) - https://github.com/go-yaml/yaml/tree/v2
 https://github.com/go-yaml/yaml/blob/v2/LICENSE
 
-edgex-go (Apache) - https://github.com/edgexfoundry/edgex-go
+edgexfoundry/edgex-go (Apache) - https://github.com/edgexfoundry/edgex-go
 https://github.com/edgexfoundry/edgex-go/blob/master/LICENSE
 
-device-sdk-go (Apache) - https://github.com/edgexfoundry/device-sdk-go
+edgexfoundry/device-sdk-go (Apache) - https://github.com/edgexfoundry/device-sdk-go
 https://github.com/edgexfoundry/device-sdk-go/blob/master/LICENSE-2.0.txt
