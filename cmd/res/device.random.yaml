@@ -141,7 +141,7 @@ commands:
       expectedValues: []
   put:
     path: "/api/v1/device/{deviceId}/GenerateRandomValue_Int16"
-    parameterNames: ["Min_Int8","Max_Int8"]
+    parameterNames: ["Min_Int16","Max_Int16"]
     responses:
     -
       code: "200"
