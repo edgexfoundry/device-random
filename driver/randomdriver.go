@@ -85,7 +85,7 @@ func (d *RandomDriver) HandleWriteCommands(addr *models.Addressable, reqs []dsMo
 				return fmt.Errorf("RandomDriver.HandleWriteCommands: minimum value %d of %T must be int between %d ~ %d", v, v, defMinInt8, defMaxInt8)
 			}
 
-			rd.minInt8 = int(v)
+			rd.minInt8 = int64(v)
 		case "Max_Int8":
 			v, err := param.Int8Value()
 			if err != nil {
@@ -95,7 +95,7 @@ func (d *RandomDriver) HandleWriteCommands(addr *models.Addressable, reqs []dsMo
 				return fmt.Errorf("RandomDriver.HandleWriteCommands: maximum value %d of %T must be int between %d ~ %d", v, v, defMinInt8, defMaxInt8)
 			}
 
-			rd.maxInt8 = int(v)
+			rd.maxInt8 = int64(v)
 		case "Min_Int16":
 			v, err := param.Int16Value()
 			if err != nil {
@@ -105,7 +105,7 @@ func (d *RandomDriver) HandleWriteCommands(addr *models.Addressable, reqs []dsMo
 				return fmt.Errorf("RandomDriver.HandleWriteCommands: minimum value %d of %T must be int between %d ~ %d", v, v, defMinInt16, defMaxInt16)
 			}
 
-			rd.minInt16 = int(v)
+			rd.minInt16 = int64(v)
 		case "Max_Int16":
 			v, err := param.Int16Value()
 			if err != nil {
@@ -115,7 +115,7 @@ func (d *RandomDriver) HandleWriteCommands(addr *models.Addressable, reqs []dsMo
 				return fmt.Errorf("RandomDriver.HandleWriteCommands: maximum value %d of %T must be int between %d ~ %d", v, v, defMinInt16, defMaxInt16)
 			}
 
-			rd.maxInt16 = int(v)
+			rd.maxInt16 = int64(v)
 		case "Min_Int32":
 			v, err := param.Int32Value()
 			if err != nil {
@@ -125,7 +125,7 @@ func (d *RandomDriver) HandleWriteCommands(addr *models.Addressable, reqs []dsMo
 				return fmt.Errorf("RandomDriver.HandleWriteCommands: minimum value %d of %T must be int between %d ~ %d", v, v, defMinInt32, defMaxInt32)
 			}
 
-			rd.minInt32 = int(v)
+			rd.minInt32 = int64(v)
 		case "Max_Int32":
 			v, err := param.Int32Value()
 			if err != nil {
@@ -135,7 +135,7 @@ func (d *RandomDriver) HandleWriteCommands(addr *models.Addressable, reqs []dsMo
 				return fmt.Errorf("RandomDriver.HandleWriteCommands: maximum value %d of %T must be int between %d ~ %d", v, v, defMinInt32, defMaxInt32)
 			}
 
-			rd.maxInt32 = int(v)
+			rd.maxInt32 = int64(v)
 		default:
 			return fmt.Errorf("RandomDriver.HandleWriteCommands: there is no matched device resource for %s", param.String())
 		}
