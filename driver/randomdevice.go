@@ -19,15 +19,15 @@ const (
 )
 
 type randomDevice struct {
-	minInt8  int
-	maxInt8  int
-	minInt16 int
-	maxInt16 int
-	minInt32 int
-	maxInt32 int
+	minInt8  int64
+	maxInt8  int64
+	minInt16 int64
+	maxInt16 int64
+	minInt32 int64
+	maxInt32 int64
 }
 
-func (d *randomDevice) value(valueType string) (int, error) {
+func (d *randomDevice) value(valueType string) (int64, error) {
 	switch valueType {
 	case "Int8":
 		if d.maxInt8 <= d.minInt8 {
@@ -63,7 +63,7 @@ func newRandomDevice() *randomDevice {
 	}
 }
 
-func random(min int, max int) int {
+func random(min int64, max int64) int64 {
 	rand.Seed(time.Now().UnixNano())
-	return rand.Intn(max-min) + min
+	return rand.Int63n(max-min) + min
 }
