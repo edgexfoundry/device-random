@@ -17,3 +17,4 @@
 vendor/
 cmd/device-random
 glide.lock
+go.sum
