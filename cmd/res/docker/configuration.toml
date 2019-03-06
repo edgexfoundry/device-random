@@ -53,7 +53,7 @@ EnableRemote = true
 File = "/edgex/logs/device-random.log"
 
 [Writable]
-LogLevel = 'INFO'
+LogLevel = "INFO"
 
 # Pre-define Devices
 [[DeviceList]]
