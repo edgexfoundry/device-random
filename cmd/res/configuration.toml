@@ -15,6 +15,14 @@ Port = 8500
 CheckInterval = "10s"
 FailLimit = 3
 FailWaitTime = 10
+Type = "consul"
+
+[Logging]
+EnableRemote = true
+File = "/edgex/logs/device-random.log"
+
+[Writable]
+LogLevel = "INFO"
 
 [Clients]
   [Clients.Data]
@@ -46,11 +54,6 @@ FailWaitTime = 10
   RemoveCmd = ""
   RemoveCmdArgs = ""
   ProfilesDir = "./res"
-
-[Logging]
-EnableRemote = false
-File = "./device-random.log"
-Level = "INFO"
 
 # Pre-define Devices
 [[DeviceList]]

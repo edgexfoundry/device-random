@@ -17,6 +17,13 @@ FailLimit = 3
 FailWaitTime = 10
 Type = "consul"
 
+[Logging]
+EnableRemote = true
+File = "/edgex/logs/device-random.log"
+
+[Writable]
+LogLevel = "INFO"
+
 [Clients]
   [Clients.Data]
   Name = "edgex-core-data"
@@ -47,13 +54,6 @@ Type = "consul"
   RemoveCmd = ""
   RemoveCmdArgs = ""
   ProfilesDir = "./res"
-
-[Logging]
-EnableRemote = true
-File = "/edgex/logs/device-random.log"
-
-[Writable]
-LogLevel = "INFO"
 
 # Pre-define Devices
 [[DeviceList]]
