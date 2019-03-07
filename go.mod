@@ -1,12 +1,14 @@
 module github.com/edgexfoundry/device-random
 
 require (
-	github.com/edgexfoundry/device-sdk-go v0.0.0-20190221215759-88097404e51e
-	github.com/edgexfoundry/go-mod-core-contracts v0.0.0-20190206111100-148998445693
+	github.com/edgexfoundry/device-sdk-go v0.0.0-20190306090327-0f835be981b7
+	github.com/edgexfoundry/go-mod-core-contracts v0.0.0-20190222195937-d11dc767d321
 	github.com/go-stack/stack v1.8.0 // indirect
-	github.com/hashicorp/memberlist v0.1.3 // indirect
-	github.com/kr/pretty v0.1.0 // indirect
-	github.com/mitchellh/go-testing-interface v1.0.0 // indirect
-	github.com/pkg/errors v0.8.1 // indirect
-	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
+	github.com/google/uuid v1.1.1 // indirect
+	github.com/gorilla/mux v1.7.0 // indirect
+	github.com/hashicorp/go-sockaddr v1.0.1 // indirect
+	github.com/hashicorp/golang-lru v0.5.1 // indirect
+	github.com/miekg/dns v1.1.4 // indirect
+	github.com/mitchellh/go-homedir v1.1.0 // indirect
+	golang.org/x/net v0.0.0-20190228165749-92fc7df08ae7 // indirect
 )
