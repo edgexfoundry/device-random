@@ -54,11 +54,11 @@ func (d *RandomDriver) HandleReadCommands(addr *models.Addressable, reqs []dsMod
 		var cv *dsModels.CommandValue
 		switch t {
 		case "Int8":
-			cv, _ = dsModels.NewInt8Value(&req.RO, now, int8(v))
+			cv, _ = dsModels.NewInt8Value(&reqs[i].RO, now, int8(v))
 		case "Int16":
-			cv, _ = dsModels.NewInt16Value(&req.RO, now, int16(v))
+			cv, _ = dsModels.NewInt16Value(&reqs[i].RO, now, int16(v))
 		case "Int32":
-			cv, _ = dsModels.NewInt32Value(&req.RO, now, int32(v))
+			cv, _ = dsModels.NewInt32Value(&reqs[i].RO, now, int32(v))
 		}
 		res[i] = cv
 	}
