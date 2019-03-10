@@ -18,9 +18,14 @@ func init() {
 }
 
 func TestHandleReadCommands(t *testing.T) {
-	addressable := models.Addressable{
-		Name: "test-addressable",
+	deviceName := "testDevice"
+	protocols := map[string]map[string]string{
+		"other": {
+			"Address": "simple01",
+			"Port":    "300",
+		},
 	}
+
 	requests := []dsModels.CommandRequest{
 		{
 			RO: models.ResourceOperation{Object: "RandomValue_Int8"},
@@ -42,7 +47,7 @@ func TestHandleReadCommands(t *testing.T) {
 		},
 	}
 
-	res, err := d.HandleReadCommands(&addressable, requests)
+	res, err := d.HandleReadCommands(deviceName, protocols, requests)
 
 	if err != nil {
 		t.Fatalf("Failt to read command, %v", err)
@@ -59,8 +64,12 @@ func TestHandleReadCommands(t *testing.T) {
 }
 
 func TestHandleWriteCommands(t *testing.T) {
-	addressable := models.Addressable{
-		Name: "test-addressable",
+	deviceName := "testDevice"
+	protocols := map[string]map[string]string{
+		"other": {
+			"Address": "simple01",
+			"Port":    "300",
+		},
 	}
 	requests := []dsModels.CommandRequest{
 		{RO: models.ResourceOperation{}},
@@ -75,7 +84,7 @@ func TestHandleWriteCommands(t *testing.T) {
 	}
 	params := []*dsModels.CommandValue{cv}
 
-	err = d.HandleWriteCommands(&addressable, requests, params)
+	err = d.HandleWriteCommands(deviceName, protocols, requests, params)
 
 	if err != nil {
 		t.Fatalf("Failt to write command, %v", err)

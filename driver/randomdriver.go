@@ -14,7 +14,6 @@ import (
 
 	dsModels "github.com/edgexfoundry/device-sdk-go/pkg/models"
 	logger "github.com/edgexfoundry/go-mod-core-contracts/clients/logging"
-	"github.com/edgexfoundry/go-mod-core-contracts/models"
 )
 
 type RandomDriver struct {
@@ -23,8 +22,8 @@ type RandomDriver struct {
 	randomDevices map[string]*randomDevice
 }
 
-func (d *RandomDriver) DisconnectDevice(address *models.Addressable) error {
-	d.lc.Info(fmt.Sprintf("RandomDriver.DisconnectDevice: device-random driver is disconnecting to %v", address))
+func (d *RandomDriver) DisconnectDevice(deviceName string, protocols map[string]map[string]string) error {
+	d.lc.Info(fmt.Sprintf("RandomDriver.DisconnectDevice: device-random driver is disconnecting to %s", deviceName))
 	return nil
 }
 
@@ -35,11 +34,11 @@ func (d *RandomDriver) Initialize(lc logger.LoggingClient, asyncCh chan<- *dsMod
 	return nil
 }
 
-func (d *RandomDriver) HandleReadCommands(addr *models.Addressable, reqs []dsModels.CommandRequest) (res []*dsModels.CommandValue, err error) {
-	rd, ok := d.randomDevices[addr.Name]
+func (d *RandomDriver) HandleReadCommands(deviceName string, protocols map[string]map[string]string, reqs []dsModels.CommandRequest) (res []*dsModels.CommandValue, err error) {
+	rd, ok := d.randomDevices[deviceName]
 	if !ok {
 		rd = newRandomDevice()
-		d.randomDevices[addr.Name] = rd
+		d.randomDevices[deviceName] = rd
 	}
 
 	res = make([]*dsModels.CommandValue, len(reqs))
@@ -66,12 +65,12 @@ func (d *RandomDriver) HandleReadCommands(addr *models.Addressable, reqs []dsMod
 	return res, nil
 }
 
-func (d *RandomDriver) HandleWriteCommands(addr *models.Addressable, reqs []dsModels.CommandRequest,
+func (d *RandomDriver) HandleWriteCommands(deviceName string, protocols map[string]map[string]string, reqs []dsModels.CommandRequest,
 	params []*dsModels.CommandValue) error {
-	rd, ok := d.randomDevices[addr.Name]
+	rd, ok := d.randomDevices[deviceName]
 	if !ok {
 		rd = newRandomDevice()
-		d.randomDevices[addr.Name] = rd
+		d.randomDevices[deviceName] = rd
 	}
 
 	for _, param := range params {
