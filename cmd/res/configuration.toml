@@ -65,28 +65,3 @@ LogLevel = "INFO"
     [DeviceList.Protocols.other]
     Address = "simple01"
     Port = "300"
-
-# Pre-define Schedule Configuration
-[[Schedules]]
-Name = "5sec-schedule"
-Frequency = "PT5S"
-
-[[ScheduleEvents]]
-Name = "readValue_int8"
-Schedule = "5sec-schedule"
-  [ScheduleEvents.Addressable]
-  HTTPMethod = "GET"
-  Path = "/api/v1/device/name/Random-Integer-Generator01/GenerateRandomValue_Int8"
-[[ScheduleEvents]]
-Name = "readValue_int16"
-Schedule = "5sec-schedule"
-  [ScheduleEvents.Addressable]
-  HTTPMethod = "GET"
-  Path = "/api/v1/device/name/Random-Integer-Generator01/GenerateRandomValue_Int16"
-[[ScheduleEvents]]
-Name = "readValue_int32"
-Schedule = "5sec-schedule"
-  [ScheduleEvents.Addressable]
-  HTTPMethod = "GET"
-  Path = "/api/v1/device/name/Random-Integer-Generator01/GenerateRandomValue_Int32"
-  
