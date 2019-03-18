@@ -19,7 +19,7 @@ func init() {
 
 func TestHandleReadCommands(t *testing.T) {
 	deviceName := "testDevice"
-	protocols := map[string]map[string]string{
+	protocols := map[string]models.ProtocolProperties{
 		"other": {
 			"Address": "simple01",
 			"Port":    "300",
@@ -65,7 +65,7 @@ func TestHandleReadCommands(t *testing.T) {
 
 func TestHandleWriteCommands(t *testing.T) {
 	deviceName := "testDevice"
-	protocols := map[string]map[string]string{
+	protocols := map[string]models.ProtocolProperties{
 		"other": {
 			"Address": "simple01",
 			"Port":    "300",

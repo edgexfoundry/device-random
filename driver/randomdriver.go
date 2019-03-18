@@ -13,6 +13,7 @@ import (
 	"time"
 
 	dsModels "github.com/edgexfoundry/device-sdk-go/pkg/models"
+	"github.com/edgexfoundry/go-mod-core-contracts/models"
 	logger "github.com/edgexfoundry/go-mod-core-contracts/clients/logging"
 )
 
@@ -22,7 +23,7 @@ type RandomDriver struct {
 	randomDevices map[string]*randomDevice
 }
 
-func (d *RandomDriver) DisconnectDevice(deviceName string, protocols map[string]map[string]string) error {
+func (d *RandomDriver) DisconnectDevice(deviceName string, protocols map[string]models.ProtocolProperties) error {
 	d.lc.Info(fmt.Sprintf("RandomDriver.DisconnectDevice: device-random driver is disconnecting to %s", deviceName))
 	return nil
 }
@@ -34,7 +35,7 @@ func (d *RandomDriver) Initialize(lc logger.LoggingClient, asyncCh chan<- *dsMod
 	return nil
 }
 
-func (d *RandomDriver) HandleReadCommands(deviceName string, protocols map[string]map[string]string, reqs []dsModels.CommandRequest) (res []*dsModels.CommandValue, err error) {
+func (d *RandomDriver) HandleReadCommands(deviceName string, protocols map[string]models.ProtocolProperties, reqs []dsModels.CommandRequest) (res []*dsModels.CommandValue, err error) {
 	rd, ok := d.randomDevices[deviceName]
 	if !ok {
 		rd = newRandomDevice()
@@ -65,7 +66,7 @@ func (d *RandomDriver) HandleReadCommands(deviceName string, protocols map[strin
 	return res, nil
 }
 
-func (d *RandomDriver) HandleWriteCommands(deviceName string, protocols map[string]map[string]string, reqs []dsModels.CommandRequest,
+func (d *RandomDriver) HandleWriteCommands(deviceName string, protocols map[string]models.ProtocolProperties, reqs []dsModels.CommandRequest,
 	params []*dsModels.CommandValue) error {
 	rd, ok := d.randomDevices[deviceName]
 	if !ok {
