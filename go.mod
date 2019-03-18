@@ -1,8 +1,8 @@
 module github.com/edgexfoundry/device-random
 
 require (
-	github.com/edgexfoundry/device-sdk-go v0.0.0-20190308092216-12a81409ace4
-	github.com/edgexfoundry/go-mod-core-contracts v0.0.0-20190306124903-4425df9b51ed
+	github.com/edgexfoundry/device-sdk-go v0.0.0-20190316170723-8e7a6966fd13
+	github.com/edgexfoundry/go-mod-core-contracts v0.0.0-20190315142420-7a2734aa6c01
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/google/uuid v1.1.1 // indirect
 	github.com/gorilla/mux v1.7.0 // indirect
