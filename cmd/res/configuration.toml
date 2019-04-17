@@ -65,3 +65,15 @@ LogLevel = "INFO"
     [DeviceList.Protocols.other]
     Address = "simple01"
     Port = "300"
+  [[DeviceList.AutoEvents]]
+    Frequency = "20s"
+    OnChange = false
+    Resource = "GenerateRandomValue_Int8"
+  [[DeviceList.AutoEvents]]
+    Frequency = "20s"
+    OnChange = false
+    Resource = "GenerateRandomValue_Int16"
+  [[DeviceList.AutoEvents]]
+    Frequency = "20s"
+    OnChange = false
+    Resource = "GenerateRandomValue_Int32"
