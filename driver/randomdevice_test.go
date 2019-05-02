@@ -3,12 +3,14 @@ package driver
 import (
 	"math"
 	"testing"
+
+	"github.com/edgexfoundry/device-sdk-go/pkg/models"
 )
 
 var device = newRandomDevice()
 
 func TestValue_Int8(t *testing.T) {
-	valueType := "Int8"
+	valueType := models.Int8
 
 	val, err := device.value(valueType)
 
@@ -21,7 +23,7 @@ func TestValue_Int8(t *testing.T) {
 }
 
 func TestValue_Int16(t *testing.T) {
-	valueType := "Int16"
+	valueType := models.Int16
 
 	val, err := device.value(valueType)
 
@@ -34,7 +36,7 @@ func TestValue_Int16(t *testing.T) {
 }
 
 func TestValue_Int32(t *testing.T) {
-	valueType := "Int32"
+	valueType := models.Int32
 
 	val, err := device.value(valueType)
 
@@ -47,7 +49,7 @@ func TestValue_Int32(t *testing.T) {
 }
 
 func TestValue_Int64(t *testing.T) {
-	valueType := "Int64"
+	valueType := models.Int64
 
 	_, err := device.value(valueType)
 

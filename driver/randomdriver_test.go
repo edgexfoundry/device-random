@@ -28,22 +28,16 @@ func TestHandleReadCommands(t *testing.T) {
 
 	requests := []dsModels.CommandRequest{
 		{
-			RO: models.ResourceOperation{Object: "RandomValue_Int8"},
-			DeviceResource: models.DeviceResource{
-				Properties: models.ProfileProperty{Value: models.PropertyValue{Type: "Int8"}},
-			},
+			DeviceResourceName: "RandomValue_Int8",
+			Type: dsModels.Int8,
 		},
 		{
-			RO: models.ResourceOperation{Object: "RandomValue_Int16"},
-			DeviceResource: models.DeviceResource{
-				Properties: models.ProfileProperty{Value: models.PropertyValue{Type: "Int16"}},
-			},
+			DeviceResourceName: "RandomValue_Int16",
+			Type: dsModels.Int16,
 		},
 		{
-			RO: models.ResourceOperation{Object: "RandomValue_Int32"},
-			DeviceResource: models.DeviceResource{
-				Properties: models.ProfileProperty{Value: models.PropertyValue{Type: "Int32"}},
-			},
+			DeviceResourceName: "RandomValue_Int32",
+			Type: dsModels.Int32,
 		},
 	}
 
@@ -55,7 +49,7 @@ func TestHandleReadCommands(t *testing.T) {
 	if len(res) != len(requests) {
 		t.Fatalf("Result amount '%v' should match '%v'", len(res), len(requests))
 	}
-	if res[0].RO.Object != "RandomValue_Int8" || res[1].RO.Object != "RandomValue_Int16" || res[2].RO.Object != "RandomValue_Int32" {
+	if res[0].DeviceResourceName != "RandomValue_Int8" || res[1].DeviceResourceName != "RandomValue_Int16" || res[2].DeviceResourceName != "RandomValue_Int32" {
 		t.Fatalf("Unexpect test result. Wrong resource object.")
 	}
 	if res[0].Type != dsModels.Int8 || res[1].Type != dsModels.Int16 || res[2].Type != dsModels.Int32 {
@@ -71,14 +65,10 @@ func TestHandleWriteCommands(t *testing.T) {
 			"Port":    "300",
 		},
 	}
-	requests := []dsModels.CommandRequest{
-		{RO: models.ResourceOperation{}},
-		{RO: models.ResourceOperation{}},
-	}
+	requests := []dsModels.CommandRequest{}
 
 	now := time.Now().UnixNano() / int64(time.Millisecond)
-	ro := models.ResourceOperation{Object: "Max_Int8"}
-	cv, err := dsModels.NewInt8Value(&ro, now, int8(127))
+	cv, err := dsModels.NewInt8Value("Max_Int8", now, int8(127))
 	if err != nil {
 		t.Fatalf("Failt to create command value, %v", err)
 	}

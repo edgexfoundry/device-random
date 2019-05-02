@@ -46,19 +46,19 @@ func (d *RandomDriver) HandleReadCommands(deviceName string, protocols map[strin
 	now := time.Now().UnixNano() / int64(time.Millisecond)
 
 	for i, req := range reqs {
-		t := req.DeviceResource.Properties.Value.Type
+		t := req.Type
 		v, err := rd.value(t)
 		if err != nil {
 			return nil, err
 		}
 		var cv *dsModels.CommandValue
 		switch t {
-		case "Int8":
-			cv, _ = dsModels.NewInt8Value(&reqs[i].RO, now, int8(v))
-		case "Int16":
-			cv, _ = dsModels.NewInt16Value(&reqs[i].RO, now, int16(v))
-		case "Int32":
-			cv, _ = dsModels.NewInt32Value(&reqs[i].RO, now, int32(v))
+		case dsModels.Int8:
+			cv, _ = dsModels.NewInt8Value(req.DeviceResourceName, now, int8(v))
+		case dsModels.Int16:
+			cv, _ = dsModels.NewInt16Value(req.DeviceResourceName, now, int16(v))
+		case dsModels.Int32:
+			cv, _ = dsModels.NewInt32Value(req.DeviceResourceName, now, int32(v))
 		}
 		res[i] = cv
 	}
@@ -75,7 +75,7 @@ func (d *RandomDriver) HandleWriteCommands(deviceName string, protocols map[stri
 	}
 
 	for _, param := range params {
-		switch param.RO.Object {
+		switch param.DeviceResourceName {
 		case "Min_Int8":
 			v, err := param.Int8Value()
 			if err != nil {
