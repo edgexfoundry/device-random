@@ -31,4 +31,4 @@ EXPOSE $APP_PORT
 
 COPY --from=builder /go/src/github.com/edgexfoundry/device-random/cmd /
 
-ENTRYPOINT ["/device-random","--registry","--profile=docker","--confdir=/res"]
+ENTRYPOINT ["/device-random","--profile=docker","--confdir=/res"]
