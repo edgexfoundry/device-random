@@ -57,7 +57,7 @@ LogLevel = "INFO"
 
 # Pre-define Devices
 [[DeviceList]]
-  Name = "Random-Integer-Generator01"
+  Name = "Random-Integer-Device"
   Profile = "Random-Integer-Generator"
   Description = "Example of Device Random"
   Labels = [ "device-random-example" ]
