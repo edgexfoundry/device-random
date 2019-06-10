@@ -4,7 +4,6 @@ Port = 49988
 ConnectRetries = 3
 Labels = []
 OpenMsg = "device random started"
-ReadMaxLimit = 256
 Timeout = 5000
 EnableAsyncReadings = true
 AsyncBufferSize = 16
