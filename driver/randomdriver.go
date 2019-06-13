@@ -13,8 +13,8 @@ import (
 	"time"
 
 	dsModels "github.com/edgexfoundry/device-sdk-go/pkg/models"
-	"github.com/edgexfoundry/go-mod-core-contracts/models"
 	"github.com/edgexfoundry/go-mod-core-contracts/clients/logger"
+	"github.com/edgexfoundry/go-mod-core-contracts/models"
 )
 
 type RandomDriver struct {
@@ -43,7 +43,7 @@ func (d *RandomDriver) HandleReadCommands(deviceName string, protocols map[strin
 	}
 
 	res = make([]*dsModels.CommandValue, len(reqs))
-	now := time.Now().UnixNano() / int64(time.Millisecond)
+	now := time.Now().UnixNano()
 
 	for i, req := range reqs {
 		t := req.Type
