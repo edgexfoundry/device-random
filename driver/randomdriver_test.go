@@ -29,15 +29,15 @@ func TestHandleReadCommands(t *testing.T) {
 	requests := []dsModels.CommandRequest{
 		{
 			DeviceResourceName: "RandomValue_Int8",
-			Type: dsModels.Int8,
+			Type:               dsModels.Int8,
 		},
 		{
 			DeviceResourceName: "RandomValue_Int16",
-			Type: dsModels.Int16,
+			Type:               dsModels.Int16,
 		},
 		{
 			DeviceResourceName: "RandomValue_Int32",
-			Type: dsModels.Int32,
+			Type:               dsModels.Int32,
 		},
 	}
 
@@ -67,7 +67,7 @@ func TestHandleWriteCommands(t *testing.T) {
 	}
 	requests := []dsModels.CommandRequest{}
 
-	now := time.Now().UnixNano() / int64(time.Millisecond)
+	now := time.Now().UnixNano()
 	cv, err := dsModels.NewInt8Value("Max_Int8", now, int8(127))
 	if err != nil {
 		t.Fatalf("Failt to create command value, %v", err)
