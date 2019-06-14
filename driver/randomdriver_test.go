@@ -14,7 +14,6 @@ var d *RandomDriver
 func init() {
 	d = new(RandomDriver)
 	d.lc = logger.NewClient("devicerandom", false, "", "DEBUG")
-	d.randomDevices = make(map[string]*randomDevice)
 }
 
 func TestHandleReadCommands(t *testing.T) {
