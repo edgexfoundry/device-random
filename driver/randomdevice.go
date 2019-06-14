@@ -30,6 +30,8 @@ type randomDevice struct {
 }
 
 func (d *randomDevice) value(valueType models.ValueType) (int64, error) {
+	// This code block checks the max and min value integrity every time because device-random allows users to modify
+	// the max and min values at runtime by Put commands
 	switch valueType {
 	case models.Int8:
 		if d.maxInt8 <= d.minInt8 {
