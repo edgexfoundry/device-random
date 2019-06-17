@@ -44,16 +44,16 @@ func TestHandleReadCommands(t *testing.T) {
 	res, err := d.HandleReadCommands(deviceName, protocols, requests)
 
 	if err != nil {
-		t.Fatalf("Failt to read command, %v", err)
+		t.Fatalf("Failed to read command, %v", err)
 	}
 	if len(res) != len(requests) {
-		t.Fatalf("Result amount '%v' should match '%v'", len(res), len(requests))
+		t.Fatalf("Number of results fetched '%v' should match '%v'", len(res), len(requests))
 	}
 	if res[0].DeviceResourceName != "RandomValue_Int8" || res[1].DeviceResourceName != "RandomValue_Int16" || res[2].DeviceResourceName != "RandomValue_Int32" {
-		t.Fatalf("Unexpect test result. Wrong resource object.")
+		t.Fatalf("Unexpected test result. Wrong resource object.")
 	}
 	if res[0].Type != dsModels.Int8 || res[1].Type != dsModels.Int16 || res[2].Type != dsModels.Int32 {
-		t.Fatalf("Unexpect test result. Wrong value type.")
+		t.Fatalf("Unexpected test result. Wrong value type.")
 	}
 }
 
@@ -65,18 +65,18 @@ func TestHandleWriteCommands(t *testing.T) {
 			"Port":    "300",
 		},
 	}
-	requests := []dsModels.CommandRequest{}
+	var requests []dsModels.CommandRequest
 
 	now := time.Now().UnixNano()
 	cv, err := dsModels.NewInt8Value("Max_Int8", now, int8(127))
 	if err != nil {
-		t.Fatalf("Failt to create command value, %v", err)
+		t.Fatalf("Failed to create command value, %v", err)
 	}
 	params := []*dsModels.CommandValue{cv}
 
 	err = d.HandleWriteCommands(deviceName, protocols, requests, params)
 
 	if err != nil {
-		t.Fatalf("Failt to write command, %v", err)
+		t.Fatalf("Failed to write command, %v", err)
 	}
 }
