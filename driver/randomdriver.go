@@ -10,17 +10,18 @@ package driver
 
 import (
 	"fmt"
+	"sync"
 	"time"
 
 	dsModels "github.com/edgexfoundry/device-sdk-go/pkg/models"
-	"github.com/edgexfoundry/go-mod-core-contracts/models"
 	"github.com/edgexfoundry/go-mod-core-contracts/clients/logger"
+	"github.com/edgexfoundry/go-mod-core-contracts/models"
 )
 
 type RandomDriver struct {
 	lc            logger.LoggingClient
 	asyncCh       chan<- *dsModels.AsyncValues
-	randomDevices map[string]*randomDevice
+	randomDevices sync.Map
 }
 
 func (d *RandomDriver) DisconnectDevice(deviceName string, protocols map[string]models.ProtocolProperties) error {
@@ -31,16 +32,11 @@ func (d *RandomDriver) DisconnectDevice(deviceName string, protocols map[string]
 func (d *RandomDriver) Initialize(lc logger.LoggingClient, asyncCh chan<- *dsModels.AsyncValues) error {
 	d.lc = lc
 	d.asyncCh = asyncCh
-	d.randomDevices = make(map[string]*randomDevice)
 	return nil
 }
 
 func (d *RandomDriver) HandleReadCommands(deviceName string, protocols map[string]models.ProtocolProperties, reqs []dsModels.CommandRequest) (res []*dsModels.CommandValue, err error) {
-	rd, ok := d.randomDevices[deviceName]
-	if !ok {
-		rd = newRandomDevice()
-		d.randomDevices[deviceName] = rd
-	}
+	rd := d.retrieveRandomDevice(deviceName)
 
 	res = make([]*dsModels.CommandValue, len(reqs))
 	now := time.Now().UnixNano() / int64(time.Millisecond)
@@ -66,13 +62,17 @@ func (d *RandomDriver) HandleReadCommands(deviceName string, protocols map[strin
 	return res, nil
 }
 
+func (d *RandomDriver) retrieveRandomDevice(deviceName string) (rdv *randomDevice) {
+	rd, ok := d.randomDevices.LoadOrStore(deviceName, newRandomDevice())
+	if rdv, ok = rd.(*randomDevice); !ok {
+		panic("The value in randomDevices has to be a reference of randomDevice")
+	}
+	return rdv
+}
+
 func (d *RandomDriver) HandleWriteCommands(deviceName string, protocols map[string]models.ProtocolProperties, reqs []dsModels.CommandRequest,
 	params []*dsModels.CommandValue) error {
-	rd, ok := d.randomDevices[deviceName]
-	if !ok {
-		rd = newRandomDevice()
-		d.randomDevices[deviceName] = rd
-	}
+	rd := d.retrieveRandomDevice(deviceName)
 
 	for _, param := range params {
 		switch param.DeviceResourceName {

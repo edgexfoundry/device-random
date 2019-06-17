@@ -14,7 +14,6 @@ var d *RandomDriver
 func init() {
 	d = new(RandomDriver)
 	d.lc = logger.NewClient("devicerandom", false, "", "DEBUG")
-	d.randomDevices = make(map[string]*randomDevice)
 }
 
 func TestHandleReadCommands(t *testing.T) {
@@ -29,15 +28,15 @@ func TestHandleReadCommands(t *testing.T) {
 	requests := []dsModels.CommandRequest{
 		{
 			DeviceResourceName: "RandomValue_Int8",
-			Type: dsModels.Int8,
+			Type:               dsModels.Int8,
 		},
 		{
 			DeviceResourceName: "RandomValue_Int16",
-			Type: dsModels.Int16,
+			Type:               dsModels.Int16,
 		},
 		{
 			DeviceResourceName: "RandomValue_Int32",
-			Type: dsModels.Int32,
+			Type:               dsModels.Int32,
 		},
 	}
 
