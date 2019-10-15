@@ -17,6 +17,6 @@ const (
 )
 
 func main() {
-	d := driver.RandomDriver{}
-	startup.Bootstrap(serviceName, device_random.Version, &d)
+	d := driver.NewProtocolDriver()
+	startup.Bootstrap(serviceName, device_random.Version, d)
 }
