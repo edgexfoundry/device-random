@@ -18,10 +18,20 @@ import (
 	"github.com/edgexfoundry/go-mod-core-contracts/models"
 )
 
+var once sync.Once
+var driver *RandomDriver
+
 type RandomDriver struct {
 	lc            logger.LoggingClient
 	asyncCh       chan<- *dsModels.AsyncValues
 	randomDevices sync.Map
+}
+
+func NewProtocolDriver() dsModels.ProtocolDriver {
+	once.Do(func() {
+		driver = new(RandomDriver)
+	})
+	return driver
 }
 
 func (d *RandomDriver) DisconnectDevice(deviceName string, protocols map[string]models.ProtocolProperties) error {
@@ -146,5 +156,20 @@ func (d *RandomDriver) HandleWriteCommands(deviceName string, protocols map[stri
 
 func (d *RandomDriver) Stop(force bool) error {
 	d.lc.Info("RandomDriver.Stop: device-random driver is stopping...")
+	return nil
+}
+
+func (d *RandomDriver) AddDevice(deviceName string, protocols map[string]models.ProtocolProperties, adminState models.AdminState) error {
+	d.lc.Debug(fmt.Sprintf("a new Device is added: %s", deviceName))
+	return nil
+}
+
+func (d *RandomDriver) UpdateDevice(deviceName string, protocols map[string]models.ProtocolProperties, adminState models.AdminState) error {
+	d.lc.Debug(fmt.Sprintf("Device %s is updated", deviceName))
+	return nil
+}
+
+func (d *RandomDriver) RemoveDevice(deviceName string, protocols map[string]models.ProtocolProperties) error {
+	d.lc.Debug(fmt.Sprintf("Device %s is removed", deviceName))
 	return nil
 }
