@@ -15,6 +15,6 @@
 //
 
 edgeXBuildGoApp (
-    project: 'device-random',
+    project: 'device-random-go',
     goVersion: '1.11'
 ) 
