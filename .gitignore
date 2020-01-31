@@ -19,3 +19,4 @@ cmd/device-random
 glide.lock
 go.sum
 coverage.out
+VERSION
