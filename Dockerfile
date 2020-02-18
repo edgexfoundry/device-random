@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-ARG BASE=golang:1.11-alpine
+ARG BASE=golang:1.13-alpine
 FROM ${BASE} AS builder
 ARG ALPINE_PKG_BASE="build-base git openssh-client"
 ARG ALPINE_PKG_EXTRA=""
@@ -37,6 +37,6 @@ FROM alpine
 ENV APP_PORT=49988
 EXPOSE $APP_PORT
 
-COPY --from=builder /device-random/cmd /
+COPY --from=builder /go/src/github.com/edgexfoundry/device-random/cmd /
 
 ENTRYPOINT ["/device-random","--profile=docker","--confdir=/res","--registry=consul://edgex-core-consul:8500"]

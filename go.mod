@@ -11,3 +11,5 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	golang.org/x/net v0.0.0-20190228165749-92fc7df08ae7 // indirect
 )
+
+go 1.13
