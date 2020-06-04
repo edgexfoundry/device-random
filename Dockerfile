@@ -38,5 +38,7 @@ ENV APP_PORT=49988
 EXPOSE $APP_PORT
 
 COPY --from=builder /go/src/github.com/edgexfoundry/device-random/cmd /
+COPY --from=builder /go/src/github.com/edgexfoundry/device-random/LICENSE /
+COPY --from=builder /go/src/github.com/edgexfoundry/device-random/Attribution.txt /
 
-ENTRYPOINT ["/device-random","--profile=docker","--confdir=/res","--registry=consul://edgex-core-consul:8500"]
+ENTRYPOINT ["/device-random","--cp=consul://edgex-core-consul:8500","--confdir=/res","--registry"]

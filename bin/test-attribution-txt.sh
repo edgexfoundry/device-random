@@ -39,7 +39,6 @@ GO111MODULE=on go mod vendor
 # anything in this loop
 shopt -s nullglob
 
-
 if [ ! -f Attribution.txt ]; then
     echo "An Attribution.txt file is missing, please add"
     EXIT_CODE=1
