@@ -1,7 +1,7 @@
 module github.com/edgexfoundry/device-random
 
 require (
-	github.com/edgexfoundry/device-sdk-go v1.2.1
+	github.com/edgexfoundry/device-sdk-go v1.2.2
 	github.com/edgexfoundry/go-mod-core-contracts v0.1.58
 	github.com/google/uuid v1.1.1 // indirect
 	github.com/hashicorp/go-sockaddr v1.0.1 // indirect
