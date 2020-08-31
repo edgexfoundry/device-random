@@ -41,4 +41,5 @@ COPY --from=builder /go/src/github.com/edgexfoundry/device-random/cmd /
 COPY --from=builder /go/src/github.com/edgexfoundry/device-random/LICENSE /
 COPY --from=builder /go/src/github.com/edgexfoundry/device-random/Attribution.txt /
 
-ENTRYPOINT ["/device-random","--cp=consul://edgex-core-consul:8500","--confdir=/res","--registry"]
+ENTRYPOINT ["/device-random"]
+CMD ["--cp=consul://edgex-core-consul:8500", "--confdir=/res", "--registry"]
