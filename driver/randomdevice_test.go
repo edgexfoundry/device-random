@@ -1,16 +1,21 @@
+//
+// Copyright (C) 2021 IOTech Ltd
+//
+// SPDX-License-Identifier: Apache-2.0
+
 package driver
 
 import (
 	"math"
 	"testing"
 
-	"github.com/edgexfoundry/device-sdk-go/pkg/models"
+	"github.com/edgexfoundry/go-mod-core-contracts/v2/v2"
 )
 
 var device = newRandomDevice()
 
 func TestValue_Int8(t *testing.T) {
-	valueType := models.Int8
+	valueType := v2.ValueTypeInt8
 
 	val, err := device.value(valueType)
 
@@ -23,7 +28,7 @@ func TestValue_Int8(t *testing.T) {
 }
 
 func TestValue_Int16(t *testing.T) {
-	valueType := models.Int16
+	valueType := v2.ValueTypeInt16
 
 	val, err := device.value(valueType)
 
@@ -36,7 +41,7 @@ func TestValue_Int16(t *testing.T) {
 }
 
 func TestValue_Int32(t *testing.T) {
-	valueType := models.Int32
+	valueType := v2.ValueTypeInt32
 
 	val, err := device.value(valueType)
 
@@ -49,7 +54,7 @@ func TestValue_Int32(t *testing.T) {
 }
 
 func TestValue_Int64(t *testing.T) {
-	valueType := models.Int64
+	valueType := v2.ValueTypeInt64
 
 	_, err := device.value(valueType)
 

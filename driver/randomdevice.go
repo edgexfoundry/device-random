@@ -1,6 +1,6 @@
 // -*- Mode: Go; indent-tabs-mode: t -*-
 //
-// Copyright (C) 2018 IOTech Ltd
+// Copyright (C) 2018-2021 IOTech Ltd
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -11,7 +11,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/edgexfoundry/device-sdk-go/pkg/models"
+	"github.com/edgexfoundry/go-mod-core-contracts/v2/v2"
 )
 
 const (
@@ -29,23 +29,23 @@ type randomDevice struct {
 	maxInt32 int64
 }
 
-func (d *randomDevice) value(valueType models.ValueType) (int64, error) {
+func (d *randomDevice) value(valueType string) (int64, error) {
 	// This code block checks the max and min value integrity every time because device-random allows users to modify
 	// the max and min values at runtime by Put commands
 	switch valueType {
-	case models.Int8:
+	case v2.ValueTypeInt8:
 		if d.maxInt8 <= d.minInt8 {
 			return 0, fmt.Errorf("randomDevice.value: maximum: %d <= minimum : %d", d.maxInt8, d.minInt8)
 		} else {
 			return random(d.minInt8, d.maxInt8), nil
 		}
-	case models.Int16:
+	case v2.ValueTypeInt16:
 		if d.maxInt16 <= d.minInt16 {
 			return 0, fmt.Errorf("randomDevice.value: maximum: %d <= minimum : %d", d.maxInt16, d.minInt16)
 		} else {
 			return random(d.minInt16, d.maxInt16), nil
 		}
-	case models.Int32:
+	case v2.ValueTypeInt32:
 		if d.maxInt32 <= d.minInt32 {
 			return 0, fmt.Errorf("randomDevice.value: maximum: %d <= minimum : %d", d.maxInt32, d.minInt32)
 		} else {

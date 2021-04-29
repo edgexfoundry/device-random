@@ -1,6 +1,6 @@
 // -*- Mode: Go; indent-tabs-mode: t -*-
 //
-// Copyright (C) 2018-2020 IOTech Ltd
+// Copyright (C) 2018-2021 IOTech Ltd
 //
 // SPDX-License-Identifier: Apache-2.0
 
@@ -13,9 +13,10 @@ import (
 	"sync"
 	"time"
 
-	dsModels "github.com/edgexfoundry/device-sdk-go/pkg/models"
-	"github.com/edgexfoundry/go-mod-core-contracts/clients/logger"
-	"github.com/edgexfoundry/go-mod-core-contracts/models"
+	dsModels "github.com/edgexfoundry/device-sdk-go/v2/pkg/models"
+	"github.com/edgexfoundry/go-mod-core-contracts/v2/clients/logger"
+	"github.com/edgexfoundry/go-mod-core-contracts/v2/v2"
+	"github.com/edgexfoundry/go-mod-core-contracts/v2/v2/models"
 )
 
 var once sync.Once
@@ -35,7 +36,7 @@ func NewProtocolDriver() dsModels.ProtocolDriver {
 }
 
 func (d *RandomDriver) DisconnectDevice(deviceName string, protocols map[string]models.ProtocolProperties) error {
-	d.lc.Info(fmt.Sprintf("RandomDriver.DisconnectDevice: device-random driver is disconnecting to %s", deviceName))
+	d.lc.Infof("RandomDriver.DisconnectDevice: device-random driver is disconnecting to %s", deviceName)
 	return nil
 }
 
@@ -49,7 +50,6 @@ func (d *RandomDriver) HandleReadCommands(deviceName string, protocols map[strin
 	rd := d.retrieveRandomDevice(deviceName)
 
 	res = make([]*dsModels.CommandValue, len(reqs))
-	now := time.Now().UnixNano()
 
 	for i, req := range reqs {
 		t := req.Type
@@ -59,13 +59,18 @@ func (d *RandomDriver) HandleReadCommands(deviceName string, protocols map[strin
 		}
 		var cv *dsModels.CommandValue
 		switch t {
-		case dsModels.Int8:
-			cv, _ = dsModels.NewInt8Value(req.DeviceResourceName, now, int8(v))
-		case dsModels.Int16:
-			cv, _ = dsModels.NewInt16Value(req.DeviceResourceName, now, int16(v))
-		case dsModels.Int32:
-			cv, _ = dsModels.NewInt32Value(req.DeviceResourceName, now, int32(v))
+		case v2.ValueTypeInt8:
+			cv, err = dsModels.NewCommandValue(req.DeviceResourceName, t, int8(v))
+		case v2.ValueTypeInt16:
+			cv, err = dsModels.NewCommandValue(req.DeviceResourceName, t, int16(v))
+		case v2.ValueTypeInt32:
+			cv, err = dsModels.NewCommandValue(req.DeviceResourceName, t, int32(v))
 		}
+
+		if err != nil {
+			return nil, err
+		}
+		cv.Origin = time.Now().UnixNano()
 		res[i] = cv
 	}
 
@@ -160,16 +165,16 @@ func (d *RandomDriver) Stop(force bool) error {
 }
 
 func (d *RandomDriver) AddDevice(deviceName string, protocols map[string]models.ProtocolProperties, adminState models.AdminState) error {
-	d.lc.Debug(fmt.Sprintf("a new Device is added: %s", deviceName))
+	d.lc.Debugf("a new Device is added: %s", deviceName)
 	return nil
 }
 
 func (d *RandomDriver) UpdateDevice(deviceName string, protocols map[string]models.ProtocolProperties, adminState models.AdminState) error {
-	d.lc.Debug(fmt.Sprintf("Device %s is updated", deviceName))
+	d.lc.Debugf("Device %s is updated", deviceName)
 	return nil
 }
 
 func (d *RandomDriver) RemoveDevice(deviceName string, protocols map[string]models.ProtocolProperties) error {
-	d.lc.Debug(fmt.Sprintf("Device %s is removed", deviceName))
+	d.lc.Debugf("Device %s is removed", deviceName)
 	return nil
 }
