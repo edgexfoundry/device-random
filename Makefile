@@ -15,9 +15,9 @@ GIT_SHA=$(shell git rev-parse HEAD)
 GOFLAGS=-ldflags "-X github.com/edgexfoundry/device-random.Version=$(VERSION)"
 
 build: $(MICROSERVICES)
-	$(GOCGO) build ./...
 
 cmd/device-random:
+	go mod tidy
 	$(GOCGO) build $(GOFLAGS) -o $@ ./cmd
 
 test:
