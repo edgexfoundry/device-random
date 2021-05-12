@@ -7,4 +7,5 @@ require (
 	github.com/hashicorp/golang-lru v0.5.1 // indirect
 )
 
-go 1.15
+go 1.16
+
