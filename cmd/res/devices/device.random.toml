@@ -9,14 +9,14 @@
     Address = 'simple01'
     Port = '300'
   [[DeviceList.AutoEvents]]
-    Frequency = '20s'
+    Interval = '20s'
     OnChange = false
     SourceName = 'GenerateRandomValue_Int8'
   [[DeviceList.AutoEvents]]
-    Frequency = '20s'
+    Interval = '20s'
     OnChange = false
     SourceName = 'GenerateRandomValue_Int16'
   [[DeviceList.AutoEvents]]
-    Frequency = '20s'
+    Interval = '20s'
     OnChange = false
     SourceName = 'GenerateRandomValue_Int32'
