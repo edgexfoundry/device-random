@@ -21,6 +21,7 @@ cmd/device-random:
 	$(GOCGO) build $(GOFLAGS) -o $@ ./cmd
 
 test:
+	go mod tidy
 	$(GOCGO) test ./... -coverprofile=coverage.out
 	$(GOCGO) vet ./...
 	gofmt -l .

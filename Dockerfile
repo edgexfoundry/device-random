@@ -29,6 +29,7 @@ WORKDIR /device-random
 
 COPY . .
 
+RUN go mod tidy
 RUN go mod download
 
 # To run tests in the build container:
