@@ -47,7 +47,7 @@ COPY --from=builder /device-random/cmd /
 COPY --from=builder /device-random/LICENSE /
 COPY --from=builder /device-random/Attribution.txt /
 
-EXPOSE 49988
+EXPOSE 59988
 
 ENTRYPOINT ["/device-random"]
 CMD ["--cp=consul://edgex-core-consul:8500", "--confdir=/res", "--registry"]
