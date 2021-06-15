@@ -11,7 +11,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/edgexfoundry/go-mod-core-contracts/v2/v2"
+	"github.com/edgexfoundry/go-mod-core-contracts/v2/common"
 )
 
 const (
@@ -33,19 +33,19 @@ func (d *randomDevice) value(valueType string) (int64, error) {
 	// This code block checks the max and min value integrity every time because device-random allows users to modify
 	// the max and min values at runtime by Put commands
 	switch valueType {
-	case v2.ValueTypeInt8:
+	case common.ValueTypeInt8:
 		if d.maxInt8 <= d.minInt8 {
 			return 0, fmt.Errorf("randomDevice.value: maximum: %d <= minimum : %d", d.maxInt8, d.minInt8)
 		} else {
 			return random(d.minInt8, d.maxInt8), nil
 		}
-	case v2.ValueTypeInt16:
+	case common.ValueTypeInt16:
 		if d.maxInt16 <= d.minInt16 {
 			return 0, fmt.Errorf("randomDevice.value: maximum: %d <= minimum : %d", d.maxInt16, d.minInt16)
 		} else {
 			return random(d.minInt16, d.maxInt16), nil
 		}
-	case v2.ValueTypeInt32:
+	case common.ValueTypeInt32:
 		if d.maxInt32 <= d.minInt32 {
 			return 0, fmt.Errorf("randomDevice.value: maximum: %d <= minimum : %d", d.maxInt32, d.minInt32)
 		} else {
