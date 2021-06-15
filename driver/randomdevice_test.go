@@ -9,13 +9,13 @@ import (
 	"math"
 	"testing"
 
-	"github.com/edgexfoundry/go-mod-core-contracts/v2/v2"
+	"github.com/edgexfoundry/go-mod-core-contracts/v2/common"
 )
 
 var device = newRandomDevice()
 
 func TestValue_Int8(t *testing.T) {
-	valueType := v2.ValueTypeInt8
+	valueType := common.ValueTypeInt8
 
 	val, err := device.value(valueType)
 
@@ -28,7 +28,7 @@ func TestValue_Int8(t *testing.T) {
 }
 
 func TestValue_Int16(t *testing.T) {
-	valueType := v2.ValueTypeInt16
+	valueType := common.ValueTypeInt16
 
 	val, err := device.value(valueType)
 
@@ -41,7 +41,7 @@ func TestValue_Int16(t *testing.T) {
 }
 
 func TestValue_Int32(t *testing.T) {
-	valueType := v2.ValueTypeInt32
+	valueType := common.ValueTypeInt32
 
 	val, err := device.value(valueType)
 
@@ -54,7 +54,7 @@ func TestValue_Int32(t *testing.T) {
 }
 
 func TestValue_Int64(t *testing.T) {
-	valueType := v2.ValueTypeInt64
+	valueType := common.ValueTypeInt64
 
 	_, err := device.value(valueType)
 

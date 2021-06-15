@@ -10,8 +10,8 @@ import (
 
 	dsModels "github.com/edgexfoundry/device-sdk-go/v2/pkg/models"
 	"github.com/edgexfoundry/go-mod-core-contracts/v2/clients/logger"
-	"github.com/edgexfoundry/go-mod-core-contracts/v2/v2"
-	"github.com/edgexfoundry/go-mod-core-contracts/v2/v2/models"
+	"github.com/edgexfoundry/go-mod-core-contracts/v2/common"
+	"github.com/edgexfoundry/go-mod-core-contracts/v2/models"
 )
 
 var d *RandomDriver
@@ -33,15 +33,15 @@ func TestHandleReadCommands(t *testing.T) {
 	requests := []dsModels.CommandRequest{
 		{
 			DeviceResourceName: "RandomValue_Int8",
-			Type:               v2.ValueTypeInt8,
+			Type:               common.ValueTypeInt8,
 		},
 		{
 			DeviceResourceName: "RandomValue_Int16",
-			Type:               v2.ValueTypeInt16,
+			Type:               common.ValueTypeInt16,
 		},
 		{
 			DeviceResourceName: "RandomValue_Int32",
-			Type:               v2.ValueTypeInt32,
+			Type:               common.ValueTypeInt32,
 		},
 	}
 
@@ -56,7 +56,7 @@ func TestHandleReadCommands(t *testing.T) {
 	if res[0].DeviceResourceName != "RandomValue_Int8" || res[1].DeviceResourceName != "RandomValue_Int16" || res[2].DeviceResourceName != "RandomValue_Int32" {
 		t.Fatalf("Unexpected test result. Wrong resource object.")
 	}
-	if res[0].Type != v2.ValueTypeInt8 || res[1].Type != v2.ValueTypeInt16 || res[2].Type != v2.ValueTypeInt32 {
+	if res[0].Type != common.ValueTypeInt8 || res[1].Type != common.ValueTypeInt16 || res[2].Type != common.ValueTypeInt32 {
 		t.Fatalf("Unexpected test result. Wrong value type.")
 	}
 }
@@ -71,7 +71,7 @@ func TestHandleWriteCommands(t *testing.T) {
 	}
 	var requests []dsModels.CommandRequest
 
-	cv, err := dsModels.NewCommandValue("Max_Int8", v2.ValueTypeInt8, int8(127))
+	cv, err := dsModels.NewCommandValue("Max_Int8", common.ValueTypeInt8, int8(127))
 	if err != nil {
 		t.Fatalf("Failed to create command value, %v", err)
 	}

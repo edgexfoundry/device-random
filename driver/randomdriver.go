@@ -15,8 +15,8 @@ import (
 
 	dsModels "github.com/edgexfoundry/device-sdk-go/v2/pkg/models"
 	"github.com/edgexfoundry/go-mod-core-contracts/v2/clients/logger"
-	"github.com/edgexfoundry/go-mod-core-contracts/v2/v2"
-	"github.com/edgexfoundry/go-mod-core-contracts/v2/v2/models"
+	"github.com/edgexfoundry/go-mod-core-contracts/v2/common"
+	"github.com/edgexfoundry/go-mod-core-contracts/v2/models"
 )
 
 var once sync.Once
@@ -59,11 +59,11 @@ func (d *RandomDriver) HandleReadCommands(deviceName string, protocols map[strin
 		}
 		var cv *dsModels.CommandValue
 		switch t {
-		case v2.ValueTypeInt8:
+		case common.ValueTypeInt8:
 			cv, err = dsModels.NewCommandValue(req.DeviceResourceName, t, int8(v))
-		case v2.ValueTypeInt16:
+		case common.ValueTypeInt16:
 			cv, err = dsModels.NewCommandValue(req.DeviceResourceName, t, int16(v))
-		case v2.ValueTypeInt32:
+		case common.ValueTypeInt32:
 			cv, err = dsModels.NewCommandValue(req.DeviceResourceName, t, int32(v))
 		}
 
